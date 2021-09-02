@@ -1,0 +1,16 @@
+server:
+  port: 87
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url:  jdbc:h2:tcp://localhost/~/test
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+#logging:
+#  level: debug
