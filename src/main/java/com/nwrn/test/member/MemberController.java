@@ -38,21 +38,15 @@ public class MemberController {
 
     //회원수정
     @ResponseBody
-    @PatchMapping("/members")
-    public String updateMember(@RequestBody MemberDTO dto) {
-        Member member = memberRepository.findById(dto.getMemberNo())
-                .orElseThrow(() -> new IllegalArgumentException("회원 id가 없습니다."));
-        member.updateMember(dto);
-        memberRepository.save(member);
-        return "ok";
+    @PatchMapping("/members/{id}")
+    public String updateMember(@RequestBody MemberDTO dto, @PathVariable Long id) {
+        return memberService.updateMember(dto, id);
     }
 
     //회원탈퇴
     @ResponseBody
     @DeleteMapping("/members/{id}")
     public String deleteMember(@PathVariable Long id) {
-        memberRepository.deleteById(id);
-        return "ok";
-//        memberRepository.deleteById(id);
+        return memberService.deleteMember(id);
     }
 }

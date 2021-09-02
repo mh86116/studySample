@@ -11,4 +11,8 @@ public interface MemberService {
     List<Member> getMembers(MemberDTO dto);
     //회원등록
     String insertMember(MemberDTO dto);
+    //정보수정
+    String updateMember(MemberDTO dto, Long id);
+    //회원탈퇴
+    String deleteMember(Long id);
 }

@@ -23,14 +23,26 @@ public class MemberServiceImpl implements MemberService {
     //회원등록
     @Override
     public String insertMember(MemberDTO dto) {
-        try {
+            validateDuplicateMember(dto);
             Member member = Member.builder()
                     .name(dto.getName())
                     .build();
             memberRepository.save(member);
-        } catch (Exception e) {
-            validateDuplicateMember(dto);
-        }
+        return "ok";
+    }
+    //정보수정
+    @Override
+    public String updateMember(MemberDTO dto, Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("존재하지 않는 회원입니다."));
+        member.updateMember(dto);
+        return "ok";
+    }
+
+    @Override
+    public String deleteMember(Long id) {
+        memberRepository.deleteById(id);
         return "ok";
     }
 
