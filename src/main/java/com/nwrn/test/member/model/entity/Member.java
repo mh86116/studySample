@@ -22,10 +22,8 @@ public class Member {
     @Column(name = "MEMBER_NAME")
     private String name;
 
-    public void updateMember(MemberDTO dto) {
-        if (dto != null) {
-            this.name = (dto.getName() == null) ? dto.getName() :  this.getName();
-        }
+    public void updateMember(String name) {
+            this.name = (name != null) ? name :  this.getName();
 
     }
 }

@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
     //회원목록조회
     @Override
     public List<Member> getMembers(MemberDTO dto) {
-        validateDuplicateMember(dto);
+        validateMember(dto);
         return memberRepository.findAll();
     }
     //회원등록
@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("존재하지 않는 회원입니다."));
-        member.updateMember(dto);
+        member.updateMember(dto.getName());
         return "ok";
     }
 

@@ -7,7 +7,6 @@ import com.nwrn.test.member.repository.MemoryMemberRepositoryImpl;
 import com.nwrn.test.member.service.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -65,7 +62,8 @@ class MemberControllerTest {
         List<Member> dto = memberRepository.findAll();
 
         assertEquals(4, dto.size());
-
+        assertNotNull(dto.get(1).getMemberNo());
+        System.out.println("회원목록조회");
     }
 
     @Test
@@ -75,23 +73,38 @@ class MemberControllerTest {
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 회원이 없습니다."));
 
-        List<Member> dto = memberRepository.findAll();
-
-        assertThat(dto).isEqualTo(members);
-
+        assertEquals(member, members.get(1));
+        System.out.println(" 회원단건조회 ");
     }
 
     @Test
-    void 회원_등록() {
-        List<Member> members = memberRepository.findAll();
+    void 회원_등록() {//따로 build
+        Member member =Member.builder()
+                .name("memberAA")
+                .build();
+        memberRepository.save(member);
 
-        assertThat(members).extracting(Member::getName)
-                .contains("memberA", "memberB", "memberC", "memberD");
+        MemberDTO dto = new MemberDTO(member);
+
+        assertEquals(dto.getName(), member.getName());
+        System.out.println("회원등록");
     }
 
     @Test
     void 회원_수정() {
+    List<Member> members = memberRepository.findAll();
 
+    Member member = members.get(3);
+    member.updateMember("memberDD");
+
+    MemberDTO dto = new MemberDTO(member);
+
+    Long no = members.get(3).getMemberNo();
+
+    memberService.updateMember(dto, no);
+
+    assertEquals(dto.getName(), member.getName());
+    System.out.println("회원수정");
     }
 
     @Test
@@ -102,10 +115,16 @@ class MemberControllerTest {
 
         memberService.deleteMember(member);
 
-        List<Member> findMember = memberRepository.findAll();
+        memberRepository.findById(member)
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
 
-        assertEquals(3, findMember.size());
+        List<Member> memberList = memberRepository.findAll();
+        assertEquals(3, memberList.size());
 
+        System.out.println("memberList = " + memberList);
 
+        System.out.println("회원삭제");
     }
 }

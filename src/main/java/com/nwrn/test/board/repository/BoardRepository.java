@@ -1,0 +1,8 @@
+package com.nwrn.test.board.repository;
+
+import com.nwrn.test.board.model.entity.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BoardRepository extends JpaRepository<Board,Long> {
+
+}
