@@ -17,7 +17,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> getBoards(BoardDTO dto) {
-        
         return boardRepository.findAll();
     }
 
@@ -30,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public String updateBoard(BoardDTO dto, Long id) {
+        validateBoard(dto);
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글 입니다."));
         board.updateBoard(dto.getTitle(), dto.getBody(), dto.getCategory());
