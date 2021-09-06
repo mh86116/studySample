@@ -122,9 +122,5 @@ class MemberControllerTest {
 
         List<Member> memberList = memberRepository.findAll();
         assertEquals(3, memberList.size());
-
-        System.out.println("memberList = " + memberList);
-
-        System.out.println("회원삭제");
     }
 }

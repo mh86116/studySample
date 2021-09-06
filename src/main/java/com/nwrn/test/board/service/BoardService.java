@@ -1,6 +1,7 @@
 package com.nwrn.test.board.service;
 
 import com.nwrn.test.board.model.dto.BoardDTO;
+import com.nwrn.test.board.model.dto.BoardReplyDTO;
 import com.nwrn.test.board.model.entity.Board;
 import com.nwrn.test.member.model.entity.Member;
 
@@ -15,4 +16,5 @@ public interface BoardService {
     String updateBoard(BoardDTO dto, Long id);
     //삭제
     String deleteBoard(Long id);
+
 }

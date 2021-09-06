@@ -29,9 +29,6 @@ public class BoardReReply {
     @Column(name = "RE_REPLY_BODY")
     private String reBody;
 
-    @Column(name = "RE_REPLY_ORDER")
-    private String reReOrder;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_SN")
     private Member memberNo;

@@ -1,8 +1,10 @@
-package com.nwrn.test.board.service;
+package com.nwrn.test.board.service.impl;
 
 import com.nwrn.test.board.model.dto.BoardDTO;
+import com.nwrn.test.board.model.dto.BoardReplyDTO;
 import com.nwrn.test.board.model.entity.Board;
 import com.nwrn.test.board.repository.BoardRepository;
+import com.nwrn.test.board.service.BoardService;
 import com.nwrn.test.member.model.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class BoardServiceImpl implements BoardService {
     
     private final BoardRepository boardRepository;
 
+    /********************************************************************************************
+     * 게시판
+     *******************************************************************************************/
     @Override
     public List<Board> getBoards(BoardDTO dto) {
         return boardRepository.findAll();
@@ -41,6 +46,8 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.deleteById(id);
         return "ok";
     }
+
+
 
     /****************************************************************************
      * 공통 로직

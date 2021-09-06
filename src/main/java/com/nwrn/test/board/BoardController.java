@@ -27,8 +27,7 @@ public class BoardController {
 
     //단건조회
     @GetMapping("/baord/{id}")
-    public String getBoard(@PathVariable Long id, @RequestParam int boardNo,
-                           @RequestParam int ReplyNo) {
+    public String getBoard(@PathVariable Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
         return "ok";

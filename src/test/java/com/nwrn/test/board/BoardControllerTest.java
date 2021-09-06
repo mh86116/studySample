@@ -122,7 +122,17 @@ class BoardControllerTest {
         boardService.updateBoard(boardDTO, no);
 
         assertEquals(boardDTO.getTitle(), board.getTitle());
+    }
 
+    @Test
+    void deleteBoard() {
+        List<Board> dto = boardRepository.findAll();
 
+        Long board = dto.get(1).getBoardNo();
+
+        boardRepository.deleteById(board);
+
+        List<Board> list = boardRepository.findAll();
+        assertEquals(2, list.size());
     }
 }
